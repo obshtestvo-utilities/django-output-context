@@ -39,7 +39,7 @@ With this goes and [a ticket](https://code.djangoproject.com/ticket/23591#ticket
 
 ## Installation
 
-First replace `'django.template.loaders.app_directories.Loader'` entry from `TEMPLATE_LOADERS` (defined in `settings.py`) with `outputcontext.template.loaders.app_directories.Loader`
+Replace `'django.template.loaders.app_directories.Loader'` entry from `TEMPLATE_LOADERS` (defined in `settings.py`) with `outputcontext.template.loaders.app_directories.Loader`
 tories.Loader`.
 
 So it will look something like this:
@@ -50,11 +50,4 @@ TEMPLATE_LOADERS = (
     'outputcontext.template.loaders.app_directories.Loader',
     #     'django.template.loaders.eggs.Loader',
 )
-```
-
-Second, override `include` and `extend` tags while booting django, like in `urls.py`:
-
-```
-from outputcontext.template import override_include_extend
-override_include_extend()
 ```
