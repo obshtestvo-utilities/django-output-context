@@ -27,8 +27,8 @@ We aim better encapsulation so let limit ourselves to **parser level**. This is 
 
 Django developers had taken the similar approach to attach `__loaded_blocks` attribute to the parser object when dealing with `block` tag.
 
-### What `django_output_context` does?
-`django_ouput_tags` adds a **parser-level** context that is shared with all templates involved in making the complete output (extended and included).
+### What `django-output-context` does?
+`django-output-context` adds a **parser-level** context that is shared with all templates involved in making the complete output (extended and included).
 
 The context is attached to the tempalte `parser` which is passed to django tags registed via `@register.tag('yourtag')` so you can now write your own tags that make use of this context to communicate template requirements or planned structure.
 
@@ -37,7 +37,7 @@ It overrides `include` and `extend` template tags. There's a lot of code duplica
 
 ## Installation
 
-Replace `'django.template.loaders.app_directories.Loader'` entry from `TEMPLATE_LOADERS` (defined in `settings.py`) with `django_parser_context.template.loaders.app_directories.Loader`
+First replace `'django.template.loaders.app_directories.Loader'` entry from `TEMPLATE_LOADERS` (defined in `settings.py`) with `django_parser_context.template.loaders.app_directories.Loader`
 tories.Loader`.
 
 So it will look something like this:
@@ -48,4 +48,11 @@ TEMPLATE_LOADERS = (
     'django_output_context.template.loaders.app_directories.Loader',
     #     'django.template.loaders.eggs.Loader',
 )
+```
+
+Second, override `include` and `extend` tags while booting django, like in `urls.py`:
+
+```
+from outputcontext.template import override_include_extend
+override_include_extend()
 ```
