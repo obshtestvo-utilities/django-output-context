@@ -39,7 +39,7 @@ With this goes and [a ticket](https://code.djangoproject.com/ticket/23591#ticket
 
 ## Installation
 
-First replace `'django.template.loaders.app_directories.Loader'` entry from `TEMPLATE_LOADERS` (defined in `settings.py`) with `django_parser_context.template.loaders.app_directories.Loader`
+First replace `'django.template.loaders.app_directories.Loader'` entry from `TEMPLATE_LOADERS` (defined in `settings.py`) with `outputcontext.template.loaders.app_directories.Loader`
 tories.Loader`.
 
 So it will look something like this:
@@ -47,7 +47,7 @@ So it will look something like this:
 ```
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
-    'django_output_context.template.loaders.app_directories.Loader',
+    'outputcontext.template.loaders.app_directories.Loader',
     #     'django.template.loaders.eggs.Loader',
 )
 ```
