@@ -1,11 +1,13 @@
-from django.template.loader import find_template_loader, make_origin, template_source_loaders
+from django.template.loader import find_template_loader, make_origin, \
+    template_source_loaders, add_to_builtins
 from django.template.base import TemplateDoesNotExist
 from django.conf import settings
 
 from outputcontext.template.base import Template
 
 
-def get_template_from_string(source, origin=None, name=None, output_context=None):
+def get_template_from_string(source, origin=None, name=None,
+                             output_context=None):
     """
     Returns a compiled Template object for the given template code,
     handling template inheritance recursively.
@@ -45,8 +47,10 @@ def get_template(template_name, output_context):
     template, origin = find_template(template_name, None, output_context)
     if not hasattr(template, 'render'):
         # template needs to be compiled
-        template = get_template_from_string(template, origin, template_name, output_context)
+        template = get_template_from_string(template, origin, template_name,
+                                            output_context)
     return template
+
 
 def select_template(template_name_list, output_context=None):
     "Given a list of template names, returns the first that can be loaded."
@@ -64,4 +68,7 @@ def select_template(template_name_list, output_context=None):
     raise TemplateDoesNotExist(', '.join(not_found))
 
 
-from outputcontext.template.loaders.app_directories import Loader as AppDirLoader
+from outputcontext.template.loaders.app_directories import \
+    Loader as AppDirLoader
+
+add_to_builtins('outputcontext.template.loader_tags')

@@ -1,6 +1,6 @@
 from django.template.loaders.app_directories import \
     Loader as AppDirectoriesLoader
-from django.template.loader import make_origin, TemplateDoesNotExist, add_to_builtins
+from django.template.loader import make_origin, TemplateDoesNotExist
 
 from outputcontext.template.loader import get_template_from_string
 
@@ -25,5 +25,3 @@ class Loader(AppDirectoriesLoader):
             # This allows for correct identification (later) of the actual template that does
             # not exist.
             return source, display_name
-
-add_to_builtins('outputcontext.template.loader_tags')
