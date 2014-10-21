@@ -105,7 +105,7 @@ class Library(BaseTemplateLibrary):
             compile_func = partial(generic_tag_compiler,
                                    params=params, varargs=varargs, varkw=varkw,
                                    defaults=defaults, name=function_name,
-                                   takes_context=takes_context,
+                                   takes_context=takes_context, output_context=self.output_context
                                    node_class=InclusionNode)
             compile_func.__doc__ = func.__doc__
             self.tag(function_name, compile_func)
