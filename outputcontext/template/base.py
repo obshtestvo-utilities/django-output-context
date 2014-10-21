@@ -29,12 +29,12 @@ def compile_string(template_string, origin, output_context=None):
 
 
 def generic_tag_compiler(parser, token, params, varargs, varkw, defaults,
-                         name, takes_context, output_context, node_class):
+                         name, takes_context, node_class):
     """
     Returns a template.Node subclass.
     """
     bits = token.split_contents()[1:]
-    output_context = output_context if output_context is not None else {}
+    output_context = parser.output_context if parser.output_context is not None else {}
     args, kwargs = parse_bits(parser, bits, params, varargs, varkw,
                               defaults, takes_context, name)
     return node_class(takes_context, output_context, args, kwargs)
@@ -105,7 +105,7 @@ class Library(BaseTemplateLibrary):
             compile_func = partial(generic_tag_compiler,
                                    params=params, varargs=varargs, varkw=varkw,
                                    defaults=defaults, name=function_name,
-                                   takes_context=takes_context, output_context=self.output_context,
+                                   takes_context=takes_context,
                                    node_class=InclusionNode)
             compile_func.__doc__ = func.__doc__
             self.tag(function_name, compile_func)
